@@ -26,6 +26,7 @@ namespace NSwag.CodeGeneration.OperationNameGenerators
         {
             return path
                 .Split('/')
+                .Select(part => part.Replace(">", string.Empty).Replace(":", string.Empty))
                 .Where(p => !p.Contains("{") && !string.IsNullOrWhiteSpace(p))
                 .Reverse()
                 .Skip(1)
@@ -65,6 +66,7 @@ namespace NSwag.CodeGeneration.OperationNameGenerators
         {
             return path
                 .Split('/')
+                .Select(part => part.Replace(">", string.Empty).Replace(":", string.Empty))
                 .Where(p => !p.Contains("{") && !string.IsNullOrWhiteSpace(p))
                 .Reverse()
                 .FirstOrDefault() ?? "Index";

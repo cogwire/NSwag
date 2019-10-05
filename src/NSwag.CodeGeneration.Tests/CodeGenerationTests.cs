@@ -111,6 +111,34 @@ namespace NSwag.CodeGeneration.Tests
             Assert.False(string.IsNullOrWhiteSpace(operationName));
         }
 
+        [Fact]
+        public void No_AngleBrackets_in_Operation_Name()
+        {
+            // Arrange
+            var path = "/my/path/with/>someIllegalPrefix";
+
+            //// Act
+            var operationName = SingleClientFromPathSegmentsOperationNameGenerator.ConvertPathToName(path);
+
+            // Assert
+            Assert.DoesNotContain(">", operationName);
+            Assert.False(string.IsNullOrWhiteSpace(operationName));
+        }
+
+        [Fact]
+        public void No_Colons_in_Operation_Name()
+        {
+            // Arrange
+            var path = "/my/path/with/:someIllegalPrefix";
+
+            //// Act
+            var operationName = SingleClientFromPathSegmentsOperationNameGenerator.ConvertPathToName(path);
+
+            // Assert
+            Assert.DoesNotContain(":", operationName);
+            Assert.False(string.IsNullOrWhiteSpace(operationName));
+        }
+
         private static OpenApiDocument CreateDocument()
         {
             var document = new OpenApiDocument();
